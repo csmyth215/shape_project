@@ -34,7 +34,7 @@ def get_radius(item):
     return(float(rad))
 
 def get_quad_properties(quad):
-    # requires wording alighment
+    # requires wording alignment
 
     quad = str(quad)
     print(f"Tell me the length and perpendicular height of {quad}: ")
@@ -417,7 +417,7 @@ def size_three_dimensional_shape():
             print("Please enter either '1', '2' '3' or '4'.")
 
 def determine_dimension_track():
-    dimension_list = {2: 'Two dimensions', 3: 'Three dimensions'}
+    dimension_list = {1: 'Two dimensions', 2: 'Three dimensions'}
 
     print("Welcome to the shape metric calculator. \nHow many dimensions does your shape have?")
     for x, y in dimension_list.items():
