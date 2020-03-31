@@ -28,9 +28,9 @@ class UserInteraction():
         elif len(dimensions) == 1:
             print(f"Tell me the {dimensions[0]} of your {shape}: ")
         elif len(dimensions) == 2:
-            print(f"Tell me the {dimensions[0]} and {dimensions[-1]} of your shape: ")
+            print(f"Tell me the {dimensions[0]} and {dimensions[-1]} of your {shape}: ")
         elif len(dimensions) > 2:
-            print(f"Tell me the {', '.join([str(i) for i in dimensions[:-1]])} and {dimensions[-1]} of your shape: ")
+            print(f"Tell me the {', '.join([str(i) for i in dimensions[:-1]])} and {dimensions[-1]} of your {shape}: ")
         else:
             print("Error encountered. Contact administrator")
             sys.exit()            

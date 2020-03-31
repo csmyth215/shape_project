@@ -19,11 +19,20 @@ def process_twodimensional_shape():
 
 
     elif shape == 2:
-        (l, ph, interior_angle) = this_session.get_open_input(shapedict[2],
-        ['length', 'perpendicular height', 'smallest interior angle'])
-        my_quad = Quadrilateral(l, ph, interior_angle)
-        this_session.print_perimeter('quadrilateral', my_quad)
-        this_session.print_area('quadrilateral', my_quad)
+        # Identify number of parallel sides:
+        print(f"How many pairs of parallel side does your {shape} have?")
+
+        parallels = {1: 'One', 2: 'Two'}
+        parallel_count = this_session.get_input_from_dict(parallels)
+        if parallel_count == 1:
+            print("The shape metric calculator doesn't work with trapezia just yet, sorry!")
+            sys.exit()
+        elif parallel_count == 2:
+            (l, ph, interior_angle) = this_session.get_open_input(shapedict[2],
+            ['length', 'perpendicular height', 'smallest interior angle'])
+            my_quad = Quadrilateral(l, ph, interior_angle)
+            this_session.print_perimeter('quadrilateral', my_quad)
+            this_session.print_area('quadrilateral', my_quad)
 
     elif shape == 3:
         # bh or abc?
@@ -62,10 +71,22 @@ def process_threedimensional_shape():
         prismtype = this_session.get_input_from_dict(prisms)
 
         if prismtype == 1:
-            (l, w, d) = this_session.get_open_input(shapedict[2], ['length', 'width', 'depth'])
-            my_prism = QuadPrism(l, w, d)
-            this_session.print_surface_area('prism', my_prism)
-            this_session.print_volume('prism', my_prism)
+            # Coming soon: creating unique case to ask user if base is rectangle/cube and default angle to 90.
+
+            # Identify number of parallel sides:
+            print("How many pairs of parallel side does your shape have?")
+
+            parallels = {1: 'One', 2: 'Two'}
+            parallel_count = this_session.get_input_from_dict(parallels)
+            if parallel_count == 1:
+                print("The shape metric calculator doesn't work with trapezoidal faces just yet, sorry!")
+                sys.exit()
+            elif parallel_count == 2:
+                (l, ph, angle, d) = this_session.get_open_input(shapedict[2], 
+                ['length', 'perpendicular height', "and smallest interior angle of your prism's base", 'the depth'])
+                my_prism = QuadPrism(l, ph, angle, d)
+                this_session.print_surface_area('prism', my_prism)
+                this_session.print_volume('prism', my_prism)
 
         if prismtype == 2:
             print("What metrics do you already know about the triangular base?")
