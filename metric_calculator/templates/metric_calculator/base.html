@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static "/mvp.css" %}">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<section>
+    <div>
+        <a href="{% url 'metric_calculator:index' %}">Shape Metric Calculator</a>
+    </div>
+</section>
+
+<section style="display: flex; flex-direction: column; align-items: center;" >
+    {% block content %}
+    {% endblock content %}
+</section>

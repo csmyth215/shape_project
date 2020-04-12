@@ -1,0 +1,18 @@
+{% extends "metric_calculator/base.html" %}
+
+{% block content %}
+
+    <form method='post'>
+        {% csrf_token %}
+        {% if shape  ==  "triangle" %}
+            <p>What triangle metrics do you already know?</p>
+            {{ form.as_p }}
+            <input type='submit' value="submit" formaction="{% url 'metric_calculator:triangle_info' %}">
+        {% else %}
+            <p>What metrics do you already know about the triangular base?</p>
+            {{ form.as_p }}
+            <input type='submit' value="submit" formaction="{% url 'metric_calculator:triangular_info' %}">
+        {% endif %}
+    </form>
+
+{% endblock content %}

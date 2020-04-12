@@ -1,0 +1,19 @@
+{% extends "metric_calculator/base.html" %}
+
+{% block content %}
+    <form method='post'>
+        {% csrf_token %}
+        {% if shape == "2D_quad" %}
+            <p>How many parallels sides does your shape have?</p>
+            {{ form.as_p }}
+            <input type='submit' value="submit" formaction="{% url 'metric_calculator:2D_parallels' %}">
+        {% elif shape == "3D_quad" %}
+            <p>How many parallel sides does the base of your shape have?</p>
+            {{ form.as_p }}
+            <input type='submit' value="submit" formaction="{% url 'metric_calculator:3D_parallels' %}">
+        {% else %}
+            <p>Shape error! Abort!</p>
+        {% endif %}
+    </form>
+
+{% endblock content %}

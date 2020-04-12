@@ -1,0 +1,17 @@
+{% extends "metric_calculator/base.html" %}
+
+{% block content %}
+
+    {% if is_3d == False %}
+        <p>Your {{ shape }} has perimeter {{ perimeter|stringformat:".2f" }} cm and area {{ area|stringformat:".2f" }} cm&#178.</p>
+
+    {% elif is_3d == True %}
+        <p>Your {{ shape }} has surface area {{ surface_area|stringformat:".2f" }} cm&#178 and volume {{ volume|stringformat:".2f" }} cm&#179.</p>   
+    
+    {% else %}
+        <p>Shape error! Abort!</p>
+
+    {% endif %}    
+
+
+{% endblock content %}

@@ -261,7 +261,7 @@ def determine_prism_type():
                 return this_prism_properties
             elif prism == 3:
                 validation_pending = False
-                print("The calculator isn't built for prisms with so may size yet, sorry!")
+                print("The calculator isn't built for prisms with so many size yet, sorry!")
             else:
                 print("Please enter '1', '2', or '3'.")
         except ValueError as ex:
