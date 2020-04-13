@@ -3,6 +3,7 @@
 from django.urls import path
 
 from . import views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 app_name = 'metric_calculator'
 urlpatterns = [
@@ -48,3 +49,5 @@ urlpatterns = [
     path('shape/error', views.error, name='error'),
     
 ]
+
+urlpatterns += staticfiles_urlpatterns()

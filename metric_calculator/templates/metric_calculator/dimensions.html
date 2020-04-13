@@ -6,7 +6,7 @@
     <form action="{% url 'metric_calculator:dimensions' %}" method='post'>
         {% csrf_token %}
         {{ form.as_p }}
-        <input type='submit' value="submit">
+        <input type='submit' value="Submit">
     </form>
 
 {% endblock content %}

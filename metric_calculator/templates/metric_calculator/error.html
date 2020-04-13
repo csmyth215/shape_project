@@ -1,9 +1,17 @@
 {% extends "metric_calculator/base.html" %}
 
 {% block content %}
-<p>
+<div style="display: flex; flex-direction: column;" >
+    <p>
     {{ error }}
-    <a href="{% url 'metric_calculator:index' %}">Start again</a>
-</p>
+    </p>
+</div>
+<div style="display: flex; justify-content: center;">
+    <a href="{% url 'metric_calculator:index' %}">
+        <button>Start again</button>
+    </a>
+</div>
+
 
 {% endblock content %}
+

@@ -7,48 +7,48 @@
         {% if shape == "circle" %}
             <p>Enter your circle's radius: </p> 
             {{ form.as_p }}
-            <input type='submit' value="submit" formaction="{% url 'metric_calculator:circle' %}">
+            <input type='submit' value="Submit" formaction="{% url 'metric_calculator:circle' %}">
 
         {% elif shape == "quadrilateral" %}
             <p>Enter the length, perpendicular height, and smallest interior angle of your quadrilateral: </p> 
             {{ form.as_p }}
-            <input type='submit' value="submit" formaction="{% url 'metric_calculator:quad' %}"> 
+            <input type='submit' value="Submit" formaction="{% url 'metric_calculator:quad' %}"> 
 
         {% elif shape  ==  "abc_triangle" %}  
             <p>Enter the three lengths of your triangle:</p>    
             {{ form.as_p }}
-            <input type='submit' value="submit" formaction="{% url 'metric_calculator:abc_tri' %}">
+            <input type='submit' value="Submit" formaction="{% url 'metric_calculator:abc_tri' %}">
 
         {% elif shape  ==  "bh_triangle" %}
             <p>Enter your triangle's base and perpendicular height.</p>               
             {{ form.as_p }}
-            <input type='submit' value="submit" formaction="{% url 'metric_calculator:bh_tri' %}">
+            <input type='submit' value="Submit" formaction="{% url 'metric_calculator:bh_tri' %}">
 
         {% elif shape  ==  "sphere" %}        
             <p>Enter your sphere's radius:</p>      
             {{ form.as_p }}
-            <input type='submit' value="submit" formaction="{% url 'metric_calculator:sphere' %}">
+            <input type='submit' value="Submit" formaction="{% url 'metric_calculator:sphere' %}">
 
         {% elif shape  ==  "abc_tri_prism" %}
             <p>Enter the three sides of your prism's base, and the prism's depth:</p>              
             {{ form.as_p }}
-            <input type='submit' value="submit" formaction="{% url 'metric_calculator:abc_tri_prism' %}">
+            <input type='submit' value="Submit" formaction="{% url 'metric_calculator:abc_tri_prism' %}">
         
         {% elif shape  ==  "bh_tri_prism" %}
             <p>Enter the base and perpendicular height of your prism's base, and the prism's depth:</p>               
             {{ form.as_p }}
-            <input type='submit' value="submit" formaction="{% url 'metric_calculator:bh_tri_prism' %}">
+            <input type='submit' value="Submit" formaction="{% url 'metric_calculator:bh_tri_prism' %}">
 
         {% elif shape  ==  "quad_prism" %}
             <p>Enter the length, perpendicular height, and smallest interior angle of your prism's base, 
                 and the prism's depth:</p>        
             {{ form.as_p }}
-            <input type='submit' value="submit" formaction="{% url 'metric_calculator:quad_prism' %}">
+            <input type='submit' value="Submit" formaction="{% url 'metric_calculator:quad_prism' %}">
 
         {% elif shape  ==  "cylinder" %}
             <p>Enter the radius of your cylinder's base, and the cylinder's depth:</p>                 
             {{ form.as_p }}
-            <input type='submit' value="submit" formaction="{% url 'metric_calculator:cylinder' %}">
+            <input type='submit' value="Submit" formaction="{% url 'metric_calculator:cylinder' %}">
 
         {% else %}
             <p>Shape error! Abort!</p>

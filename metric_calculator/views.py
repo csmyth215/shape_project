@@ -27,7 +27,7 @@ def determine_dimension_path(request):
         if form.is_valid():
             dimensions = form.cleaned_data['shape_dimensions']
             if dimensions == "1":
-                end_text = """It seems you already know the one thing there is to know. 
+                end_text = """It seems you already know the one thing there is to know! 
                 \nThe calculator can't help you further."""
                 return error(request, end_text)
             elif dimensions == "2":
@@ -192,7 +192,7 @@ def quad_results(request):
 
             area = length * height
             perimeter = (2 * length) + (2 * (height / math.sin(int_angle)))
-            context = {'is_3d': False, 'shape': 'quadrilateral', 'perimeter': perimeter, 'area': area}
+            context = {'is_3d': False, 'shape': 'quadrilateral', 'perimeter': perimeter, 'area': area, 'angle': int_angle}
             return render(request, 'metric_calculator/results.html', context)
 
 
