@@ -3,8 +3,6 @@ from two_dimensional_shapes import *
 from three_dimensional_shapes import *
 from user_interaction import *
 
-"""Outer loop to be added to accommodate input for several shapes in one session."""
-
 def process_twodimensional_shape():
     # process two-dimensional objects
     print("Is your shape a...")

@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import *
 import math
+from two_dimensional_shapes import *
+from three_dimensional_shapes import *
 
 # Opportunities for improvement:
 # - change all numeric dictionary keys to meaningful/transparent words
@@ -27,8 +29,8 @@ def determine_dimension_path(request):
         if form.is_valid():
             dimensions = form.cleaned_data['shape_dimensions']
             if dimensions == "1":
-                end_text = """It seems you already know the one thing there is to know! 
-                \nThe calculator can't help you further."""
+                end_text = """It seems you already know the one thing there is to know!\n 
+                \nThe calculator can't help you further at the moment."""
                 return error(request, end_text)
             elif dimensions == "2":
                 return redirect('metric_calculator:2D')
@@ -102,7 +104,7 @@ def get_2d_triangle_approach(request):
                 end_text = "The calculator needs that minimum knowledge for now, sorry!"
                 return error(request, end_text)
 
-    context = {'form': form, 'shape': 'triangle'}
+    context = {'form': form, 'shape': 'triangle', 'error_type': 'triangle'}
     return render(request, 'metric_calculator/triangle_approach.html', context)
 
 def get_3d_triangle_approach(request):
@@ -121,7 +123,7 @@ def get_3d_triangle_approach(request):
                 end_text = "The calculator needs that minimum knowledge for now, sorry!"
                 return error(request, end_text)
 
-    context = {'form': form, 'shape': 'triangular prism'}
+    context = {'form': form, 'shape': 'triangular prism', 'error_type': 'triangle'}
     return render(request, 'metric_calculator/triangle_approach.html', context)
 
 def get_2d_parallel_lines(request):
@@ -139,7 +141,7 @@ def get_2d_parallel_lines(request):
                 end_text = "The shape metric calculator doesn't work with trapezia just yet, sorry!"
                 return error(request, end_text)
 
-    context = {'form': form, 'shape': '2D_quad'}
+    context = {'form': form, 'shape': '2D_quad', 'error_type': 'parallels'}
     return render(request, 'metric_calculator/parallels.html', context)
 
 def get_3d_parallel_lines(request):
@@ -156,7 +158,7 @@ def get_3d_parallel_lines(request):
                 end_text = "The shape metric calculator doesn't work with trapezia just yet, sorry!"
                 return error(request, end_text)
 
-    context = {'form': form, 'shape': '3D_quad'}
+    context = {'form': form, 'shape': '3D_quad', 'error_type': 'parallels'}
     return render(request, 'metric_calculator/parallels.html', context)
 
 # Get dimensions and calculate. 
@@ -169,8 +171,9 @@ def circle_results(request):
         form = RadiusInput(data=request.POST)
         if form.is_valid():
             radius = form.cleaned_data['r']
-            perimeter = radius * 2 * math.pi
-            area = radius ** 2 * math.pi
+            circle = Circle(radius)
+            perimeter = circle.get_perimeter()
+            area = circle.get_area()
 
             context = {'is_3d': False, 'shape': 'circle', 'perimeter': perimeter, 'area': area}
             return render(request, 'metric_calculator/results.html', context)
@@ -186,13 +189,22 @@ def quad_results(request):
     else:
         form = QuadInput(data=request.POST)
         if form.is_valid():
-            length = form.cleaned_data['l']
-            height = form.cleaned_data['h']
-            int_angle = math.radians(form.cleaned_data['deg'])
+            l = form.cleaned_data['l']
+            h = form.cleaned_data['h']
+            int_angle = form.cleaned_data['deg']
 
-            area = length * height
-            perimeter = (2 * length) + (2 * (height / math.sin(int_angle)))
-            context = {'is_3d': False, 'shape': 'quadrilateral', 'perimeter': perimeter, 'area': area, 'angle': int_angle}
+            quad = Quadrilateral(l, h, int_angle)
+            perimeter = quad.get_perimeter()
+            area = quad.get_area()
+
+            right_angled = False
+            square = False
+            if int_angle == 90:
+                right_angled = True
+            if l == h:
+                square = True
+
+            context = {'is_3d': False, 'right_angled': right_angled, 'square': square, 'shape': 'quadrilateral', 'perimeter': perimeter, 'area': area}
             return render(request, 'metric_calculator/results.html', context)
 
 
@@ -211,9 +223,9 @@ def abc_triangle_results(request):
             b = measurements[1]
             c = measurements[2]
 
-            perimeter = a + b + c
-            halfp = perimeter * 0.5
-            area = math.sqrt(halfp * (halfp - a) * (halfp - b) * (halfp - c))
+            tri = Triangle(b, a, c)
+            perimeter = tri.get_perimeter()
+            area = tri.get_area()
 
             context = {'is_3d': False, 'shape': 'triangle', 'perimeter': perimeter, 'area': area}
             return render(request, 'metric_calculator/results.html', context)
@@ -231,16 +243,12 @@ def bh_triangle_results(request):
         if form.is_valid():
             b = form.cleaned_data['b']
             h = form.cleaned_data['h']
-            a = math.sqrt(((0.5 * b) ** 2) + (h ** 2))
-            c = math.sqrt(((0.5 * b) ** 2) + (h ** 2))
-
-            perimeter = a + b + c
-            halfp = perimeter * 0.5
-            area = math.sqrt(halfp * (halfp - a) * (halfp - b) * (halfp - c))
+            tri = Triangle(b, ph=h)
+            perimeter = tri.get_perimeter()
+            area = tri.get_area()
 
             context = {'is_3d': False, 'shape': 'triangle', 'perimeter': perimeter, 'area': area}
             return render(request, 'metric_calculator/results.html', context)
-
 
     context = {'form': form, 'shape': 'bh_triangle'}
     return render(request, 'metric_calculator/input_dimensions.html', context)
@@ -253,8 +261,9 @@ def sphere_results(request):
         form = RadiusInput(data=request.POST)
         if form.is_valid():
             radius = form.cleaned_data['r']
-            surface_area = 4 * math.pi * (radius ** 2)
-            volume = 4/3 * math.pi * (radius ** 3)
+            sphere = Sphere(radius)
+            surface_area = sphere.get_surface_area()
+            volume = sphere.get_volume()
 
             context = {'is_3d': True, 'shape': 'sphere', 'surface_area': surface_area, 'volume': volume}
             return render(request, 'metric_calculator/results.html', context)
@@ -275,11 +284,9 @@ def abc_tri_prism_results(request):
             c = measurements[2]
             d = form.cleaned_data['d']
 
-            perimeter = a + b + c
-            halfp = perimeter * 0.5
-            area = math.sqrt(halfp * (halfp - a) * (halfp - b) * (halfp - c))
-            surface_area = (b * d) + (a * d) + (c * d) + (2 * area)
-            volume = area * d
+            tripri = TriangularPrism(b, d, a, c)
+            surface_area = tripri.get_surface_area()
+            volume = tripri.get_volume()
 
             context = {'is_3d': True, 'shape': 'triangular prism', 'surface_area': surface_area, 'volume': volume}
             return render(request, 'metric_calculator/results.html', context)
@@ -297,14 +304,10 @@ def bh_tri_prism_results(request):
             b = form.cleaned_data['b']
             h = form.cleaned_data['h']
             d = form.cleaned_data['d']
-            a = math.sqrt(((0.5 * b) ** 2) + (h ** 2))
-            c = math.sqrt(((0.5 * b) ** 2) + (h ** 2))
 
-            perimeter = a + b + c
-            halfp = perimeter * 0.5
-            area = math.sqrt(halfp * (halfp - a) * (halfp - b) * (halfp - c))
-            surface_area = (b * d) + (a * d) + (c * d) + (2 * area)
-            volume = area * d
+            tripri = TriangularPrism(b, d, ph=h)
+            surface_area = tripri.get_surface_area()
+            volume = tripri.get_volume()
 
             context = {'is_3d': True, 'shape': 'triangular prism', 'surface_area': surface_area, 'volume': volume}
             return render(request, 'metric_calculator/results.html', context)
@@ -323,15 +326,21 @@ def quadprism_results(request):
         if form.is_valid():
             l = form.cleaned_data['l']
             h = form.cleaned_data['h']
-            int_angle = math.radians(form.cleaned_data['deg'])
+            int_angle = form.cleaned_data['deg']
             d = form.cleaned_data['d']
-            side = h / math.sin(int_angle)
 
-            area = l * h
-            perimeter = (2 * l) + (2 * side)
-            surface_area = (2 * (l * h)) + (2 * (l * d)) + (2 * (side * d))
-            volume = l * h * d 
-            context = {'is_3d': True, 'shape': 'quad prism', 'surface_area': surface_area, 'volume': volume}
+            quadpri = QuadPrism(l, h, int_angle, d)
+            surface_area = quadpri.get_surface_area()
+            volume = quadpri.get_volume()
+
+            right_angled = False
+            square = False
+            if int_angle == 90:
+                right_angled = True
+            if l == h:
+                square = True
+
+            context = {'is_3d': True, 'right_angled': right_angled, 'square': square, 'shape': 'quad prism', 'surface_area': surface_area, 'volume': volume}
             return render(request, 'metric_calculator/results.html', context)
 
     context = {'form': form, 'shape': 'quad_prism'}
@@ -346,9 +355,10 @@ def cylinder_results(request):
         if form.is_valid():
             r = form.cleaned_data['r']
             d = form.cleaned_data['d']
-            circumf = r * 2 * math.pi
-            surface_area = (2 * math.pi * (r ** 2)) + (circumf * d)
-            volume = math.pi * (r ** 2) * d
+
+            cylinder = Cylinder(r, d)
+            surface_area = cylinder.get_surface_area()
+            volume = cylinder.get_volume()
 
             context = {'is_3d': True, 'shape': 'cylinder', 'surface_area': surface_area, 'volume': volume}
             return render(request, 'metric_calculator/results.html', context)

@@ -19,11 +19,22 @@
         <img src="{% static "/images/circle.svg" %}" alt="circle">
 
     {% elif shape == "quadrilateral" %}
-        {% if angle == 90 %}
-            {% load static %}
-            <img src="{% static "/images/square.svg" %}" alt="right-angled quadrilateral">
+        {% if right_angled == True %}
+            {% if square == True %}
+                {% load static %}
+                <img src="{% static "/images/square.svg" %}" alt="square">
+            {% else %}
+                {% load static %}
+                <img src="{% static "/images/rectangle.svg" %}" alt="rectangle">
+            {% endif %}
         {% else %}
-            <img src="{% static "/images/parallelogram.svg" %}" alt="quadrilateral">
+            {% if square == True %}
+                {% load static %}
+                <img src="{% static "/images/rhombus.svg" %}" alt="rhombus">
+            {% else %}
+                {% load static %}
+                <img src="{% static "/images/parallelogram.svg" %}" alt="parallelogram">
+            {% endif %}
         {% endif %}
 
     {% elif shape == "triangle" %}
@@ -34,21 +45,40 @@
         {% load static %}
         <img src="{% static "/images/sphere.svg" %}" alt="sphere">
 
+    {% elif shape == "quad prism" %}
+        {% if square == True %}
+            {% load static %}
+            <img src="{% static "/images/cube.svg" %}" alt="cube">
+        {% else %}
+            {% load static %}
+            <img src="{% static "/images/parallelepiped.svg" %}" alt="cuboid">
+        {% endif %}
+
+    {% elif shape == "triangular prism" %}
+        {% load static %}
+        <img src="{% static "/images/triprism.svg" %}" alt="triangular prism">
+
     {% elif shape == "cylinder" %}
         {% load static %}
         <img src="{% static "/images/cylinder.svg" %}" alt="cylinder">
 
-
     {% else %}
-
         <p style="text-align: right; font-size: 50%">Shape image coming soon!</small></p>
-
     {% endif %}
 
 </div>
+<div style="display: flex; justify-content: center;">
+    <small>
+        <a href="{% url 'metric_calculator:index' %}">
+            <button>Start again</button>
+        </a>            
+    </small>
+</div>
 <div style="display: flex; justify-content: flex-end;">
     <p>
-        <small>Image created by shwepes from the Noun Project</small>
+        <small>
+            <small>Image from Geometry/Geometric Shapes collections on the Noun Project</small>
+        </small>
     </p>
 </div>
 
