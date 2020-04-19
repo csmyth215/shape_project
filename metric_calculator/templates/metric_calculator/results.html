@@ -16,51 +16,51 @@
 
     {% if shape == "circle" %}
         {% load static %}
-        <img src="{% static "/images/circle.svg" %}" alt="circle">
+        <img src="{% static "images/circle.svg" %}" alt="circle">
 
     {% elif shape == "quadrilateral" %}
         {% if right_angled == True %}
             {% if square == True %}
                 {% load static %}
-                <img src="{% static "/images/square.svg" %}" alt="square">
+                <img src="{% static "images/square.svg" %}" alt="square">
             {% else %}
                 {% load static %}
-                <img src="{% static "/images/rectangle.svg" %}" alt="rectangle">
+                <img src="{% static "images/rectangle.svg" %}" alt="rectangle">
             {% endif %}
         {% else %}
             {% if square == True %}
                 {% load static %}
-                <img src="{% static "/images/rhombus.svg" %}" alt="rhombus">
+                <img src="{% static "images/rhombus.svg" %}" alt="rhombus">
             {% else %}
                 {% load static %}
-                <img src="{% static "/images/parallelogram.svg" %}" alt="parallelogram">
+                <img src="{% static "images/parallelogram.svg" %}" alt="parallelogram">
             {% endif %}
         {% endif %}
 
     {% elif shape == "triangle" %}
         {% load static %}
-        <img src="{% static "/images/triangle.svg" %}" alt="triangle">
+        <img src="{% static "images/triangle.svg" %}" alt="triangle">
 
     {% elif shape == "sphere" %}
         {% load static %}
-        <img src="{% static "/images/sphere.svg" %}" alt="sphere">
+        <img src="{% static "images/sphere.svg" %}" alt="sphere">
 
     {% elif shape == "quad prism" %}
         {% if square == True %}
             {% load static %}
-            <img src="{% static "/images/cube.svg" %}" alt="cube">
+            <img src="{% static "images/cube.svg" %}" alt="cube">
         {% else %}
             {% load static %}
-            <img src="{% static "/images/parallelepiped.svg" %}" alt="cuboid">
+            <img src="{% static "images/parallelepiped.svg" %}" alt="cuboid">
         {% endif %}
 
     {% elif shape == "triangular prism" %}
         {% load static %}
-        <img src="{% static "/images/triprism.svg" %}" alt="triangular prism">
+        <img src="{% static "images/triprism.svg" %}" alt="triangular prism">
 
     {% elif shape == "cylinder" %}
         {% load static %}
-        <img src="{% static "/images/cylinder.svg" %}" alt="cylinder">
+        <img src="{% static "images/cylinder.svg" %}" alt="cylinder">
 
     {% else %}
         <p style="text-align: right; font-size: 50%">Shape image coming soon!</small></p>

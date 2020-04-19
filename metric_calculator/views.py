@@ -218,10 +218,9 @@ def abc_triangle_results(request):
     else:
         form = ABCInput(data=request.POST)
         if form.is_valid():
-            measurements = form.clean_lengths()
-            a = measurements[0]
-            b = measurements[1]
-            c = measurements[2]
+            a = form.cleaned_data['a']
+            b = form.cleaned_data['b']
+            c = form.cleaned_data['c']
 
             tri = Triangle(b, a, c)
             perimeter = tri.get_perimeter()
@@ -278,10 +277,9 @@ def abc_tri_prism_results(request):
     else:
         form = ABCTriPrismInput(data=request.POST)
         if form.is_valid():
-            measurements = form.clean_lengths()
-            a = measurements[0]
-            b = measurements[1]
-            c = measurements[2]
+            a = form.cleaned_data['a']
+            b = form.cleaned_data['b']
+            c = form.cleaned_data['c']
             d = form.cleaned_data['d']
 
             tripri = TriangularPrism(b, d, a, c)

@@ -48,6 +48,9 @@ class ABCInput(forms.Form):
         measurements = (raw_a, raw_b, raw_c)
         return measurements
 
+    def clean(self):
+        self.clean_lengths()
+
 class BHInput(forms.Form):
     b = forms.FloatField(min_value=0.01, label="Base (cm)")
     h = forms.FloatField(min_value=0.01, label="Perpendicular height (cm)")

@@ -1,1 +1,1 @@
-web: gunicorn shape_calculator.wsgi --log-file -
+web: gunicorn --workers=4 --bind=0.0.0.0:$PORT measurement_calculator.wsgi
