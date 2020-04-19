@@ -1,0 +1,1 @@
+web: gunicorn shape_calculator.wsgi --log-file -
