@@ -22,6 +22,11 @@ Install dependencies from requirements.txt:
 $ pip install -r requirements.txt
 ```
 
+Set a secret key in measurement_calculator/settings.py
+```
+$ SECRET_KEY = '[my_chosen_key_here]'
+```
+
 Run the development server:  
 ```
 $ python manage.py runserver
